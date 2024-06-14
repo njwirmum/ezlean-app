@@ -14,6 +14,8 @@ import io.micrometer.core.instrument.Tags;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import org.apache.catalina.Manager;
+import org.apache.catalina.session.StandardManager;
 
 @WebListener
 public class MetricsContextListener implements ServletContextListener {
@@ -32,7 +34,10 @@ public class MetricsContextListener implements ServletContextListener {
         new LogbackMetrics().bindTo(prometheusRegistry);
         new ProcessorMetrics().bindTo(prometheusRegistry);
         new UptimeMetrics().bindTo(prometheusRegistry);
-        new TomcatMetrics(TomcatMetrics.getTomcatManager(sce.getServletContext()), Tags.empty()).bindTo(prometheusRegistry);
+
+        Manager manager = new StandardManager();
+        new TomcatMetrics(manager, Tags.empty()).bindTo(prometheusRegistry);
+
         sce.getServletContext().setAttribute("prometheusRegistry", prometheusRegistry);
     }
 
