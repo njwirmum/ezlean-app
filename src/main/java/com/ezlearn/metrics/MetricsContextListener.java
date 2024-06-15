@@ -46,4 +46,3 @@ public class MetricsContextListener implements ServletContextListener {
         // Clean up if necessary
     }
 }
-
