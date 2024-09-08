@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/metrics")
+// @WebServlet("/metrics")
 public class MetricsServlet extends HttpServlet {
 
     @Override
